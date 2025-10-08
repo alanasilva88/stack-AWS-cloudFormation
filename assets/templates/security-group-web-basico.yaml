@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template CFN para provisionar um Security Group basico para servidor web.
+
+Parameters:
+  VpcId:
+    Type: String
+    Description: O ID da VPC onde o Security Group sera criado.
+  SSHLocation:
+    Type: String
+    Description: O IP no formato CIDR permitido para acesso SSH (ex: 203.0.113.1/32).
+    Default: 0.0.0.0/0
+
+Resources:
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group que permite acesso HTTP e SSH.
+      VpcId: !Ref VpcId
+      SecurityGroupIngress: # Regras de entrada (Inbound)
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # Acesso HTTP de qualquer lugar
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0 # Acesso HTTPS de qualquer lugar
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SSHLocation # Acesso SSH restrito pelo parametro
+
+Outputs:
+  SecurityGroupId:
+    Description: O ID do Security Group criado pelo CloudFormation.
+    Value: !Ref WebServerSecurityGroup
