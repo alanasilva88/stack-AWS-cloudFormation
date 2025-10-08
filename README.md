@@ -1,4 +1,4 @@
-## 🚀 Desafios Práticos de AWS Serverless & Infraestrutura como Código (IaC)
+## 🚀 Desafio Prático de Infraestrutura como Código (IaC)
 
 Este repositório documenta as atividades e anotações dos desafios práticos de AWS, focando na tecnologia **AWS CloudFormation**.
 
